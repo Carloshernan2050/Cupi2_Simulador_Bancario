@@ -208,13 +208,31 @@ public class SimuladorBancario
     }
 
     /**
-     * Retorna el resultado de la extensión 1.
-     * @return Respuesta 1.
+     * Calcula el saldo promedio de las cuentas del cliente entre el mes actual y un mes dado por el cliente.
+     * @param mesActualSimulacion Mes actual de la simulación. mesActualSimulacion > 0.
+     * @param mesCliente Mes futuro dado por el cliente. mesCliente >= mesActualSimulacion.
+     * @return Saldo promedio en el intervalo de tiempo.
      */
-    public String metodo1( )
+    public double metodo1(int mesActualSimulacion, int mesCliente)
     {
-        return "Respuesta 1";
+        if (mesCliente < mesActualSimulacion) {
+            throw new IllegalArgumentException("El mes del cliente no puede ser anterior al mes actual.");
+        }
+
+        int totalMeses = mesCliente - mesActualSimulacion + 1;
+        double sumaSaldos = 0.0;
+
+        for (int mes = mesActualSimulacion; mes <= mesCliente; mes++) {
+            double saldoCorriente = corriente.darSaldo();
+            double saldoAhorros = ahorros.simularSaldoMeses(mes - this.mesActual);
+            double valorCDT = inversion.calcularValorPresente(mes);
+
+            sumaSaldos += saldoCorriente + saldoAhorros + valorCDT;
+        }
+
+        return sumaSaldos / totalMeses;
     }
+
 
     /**
      * Retorna el resultado de la extensión 2.

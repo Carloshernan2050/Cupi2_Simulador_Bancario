@@ -40,7 +40,7 @@ public class InterfazSimulador extends JFrame
     // -----------------------------------------------------------------
     // Atributos de Interfaz
     // -----------------------------------------------------------------
-
+    
     /**
      * Panel con la imagen.
      */
@@ -346,12 +346,66 @@ public class InterfazSimulador extends JFrame
     /**
      * Método para la extensión 1.
      */
-    public void reqFuncOpcion1( )
-    {
-        String respuesta = cuenta.metodo1( );
-        actualizar( );
-        JOptionPane.showMessageDialog( this, respuesta, "Respuesta.", JOptionPane.INFORMATION_MESSAGE );
+    public void reqFuncOpcion1() {
+        try {
+            int mesActual = cuenta.darMesActual();  // Obtiene el mes actual
+
+            String entrada = JOptionPane.showInputDialog(
+                this,
+                "Mes actual : " + mesActual + "\ningrese el mes del que desea conocer el saldo:",
+                "Entrada de mes",
+                JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (entrada == null) {
+                return;  // El usuario canceló el diálogo
+            }
+
+            int mesCliente = Integer.parseInt(entrada);
+
+            if (mesCliente < mesActual) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "El mes del cliente no puede ser anterior al mes actual (" + mesActual + ").",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            double resultado = cuenta.metodo1(mesActual, mesCliente);
+
+            actualizar();
+
+            // Formatear el resultado usando tu método formatearValor
+            String resultadoFormateado = formatearValor(resultado);
+
+            JOptionPane.showMessageDialog(
+                this,
+                "El promedio es: " + resultadoFormateado,
+                "Respuesta.",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Por favor ingrese un número válido.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
+
+
+
 
     /**
      * Método para la extensión 2.

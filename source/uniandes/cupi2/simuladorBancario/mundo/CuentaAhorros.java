@@ -89,4 +89,18 @@ public class CuentaAhorros
     {
         saldo = saldo + ( saldo * interesMensual );
     }
+    
+    /**
+     * Simula el saldo que tendría esta cuenta dentro de cierta cantidad de meses, sin afectar el saldo real.
+     * @param meses Número de meses en el futuro a simular. Debe ser >= 0.
+     * @return Saldo simulado dentro de los meses especificados.
+     */
+    public double simularSaldoMeses(int meses)
+    {
+        double saldoSimulado = saldo;
+        for (int i = 0; i < meses; i++) {
+            saldoSimulado += saldoSimulado * interesMensual;
+        }
+        return saldoSimulado;
+    }
 }
