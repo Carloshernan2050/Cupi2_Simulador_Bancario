@@ -58,7 +58,16 @@ public class PanelCDT extends JPanel implements ActionListener
     // -----------------------------------------------------------------
     // Atributos de Interfaz
     // -----------------------------------------------------------------
-
+    
+    /**
+     * etiqueta del interes del CDT
+     */
+    private JLabel etiquetaInteresCDT;
+    
+    /**
+     * campo donde se muestra el interes de CDT
+     */
+    private JTextField txtInteresCDT;
     /**
      * Etiqueta del saldo del CDT.
      */
@@ -97,6 +106,10 @@ public class PanelCDT extends JPanel implements ActionListener
         etiquetaSaldoCdt = new JLabel( "Saldo CDT: " );
         txtSaldoCdt = new JTextField( 14 );
         txtSaldoCdt.setEditable( false );
+        
+        etiquetaInteresCDT = new JLabel( "Interés CDT: " );
+        txtInteresCDT = new JTextField( 14 );
+        txtInteresCDT.setEditable( false );
 
         btnAbrirCDT = new JButton( "Abrir" );
         btnAbrirCDT.setActionCommand( ABRIR_CDT );
@@ -138,9 +151,10 @@ public class PanelCDT extends JPanel implements ActionListener
      * <b>post: </b> Se actualizó la información con el saldo en CDT.
      * @param pSaldo Saldo en el CDT del cliente. pSaldo != null.
      */
-    public void actualizarSaldoCDT( String pSaldo )
+    public void actualizarSaldoCDT( String pSaldo, String interes )
     {
         txtSaldoCdt.setText( pSaldo );
+        txtInteresCDT.setText(interes + " %");
     }
 
     /**

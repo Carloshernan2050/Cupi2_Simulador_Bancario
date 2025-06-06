@@ -39,7 +39,7 @@ public class SimuladorBancarioTest
      */
     private void setupEscenario1( )
     {
-        cuenta = new SimuladorBancario( "50.152.468", "Sergio López" );
+        cuenta = new SimuladorBancario( "50.152.468", "Carlos Hernan" );
     }
 
     /**

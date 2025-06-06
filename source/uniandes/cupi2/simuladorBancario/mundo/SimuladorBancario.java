@@ -29,7 +29,7 @@ public class SimuladorBancario
      */
     private String nombre;
 
-    /**
+    /** 
      * Mes actual.
      */
     private int mesActual;

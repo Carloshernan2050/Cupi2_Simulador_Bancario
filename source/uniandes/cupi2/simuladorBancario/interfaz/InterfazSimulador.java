@@ -87,10 +87,10 @@ public class InterfazSimulador extends JFrame
     public InterfazSimulador( )
     {
         setTitle( "Simulador bancario" );
-        setSize( 600, 580 );
+        setSize(700, 700);
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
-        cuenta = new SimuladorBancario( "50.152.468", "Sergio López" );
+        cuenta = new SimuladorBancario( "10.924.55.166", "Carlos Hernan" );
 
         panelCDT = new PanelCDT( this );
         panelAhorros = new PanelAhorros( this );
@@ -123,7 +123,7 @@ public class InterfazSimulador extends JFrame
         panelTransacciones.add( panelSaldos );
 
         setLocationRelativeTo( null );
-        setResizable( false );
+        setResizable( true );
 
         actualizar( );
     }
@@ -140,13 +140,15 @@ public class InterfazSimulador extends JFrame
     {
         String nombre = cuenta.darNombre( );
         String cedula = cuenta.darCedula( );
+        double saldo = cuenta.darCuentaAhorros().darSaldo();
+        double interes = cuenta.darCuentaAhorros().darInteresMensual() * 100;        
         panelDatos.actualizarNombre( nombre );
         panelDatos.actualizarCedula( "" + cedula );
         panelSaldos.actualizarMes( cuenta.darMesActual( ) );
         panelSaldos.actualizarSaldoTotal( formatearValor( cuenta.calcularSaldoTotal( ) ) );
 
         panelCorriente.actualizarSaldoCorriente( formatearValor( cuenta.darCuentaCorriente( ).darSaldo( ) ) );
-        panelAhorros.actualizarSaldoAhorros( formatearValor( cuenta.darCuentaAhorros( ).darSaldo( ) ) + "   [" + ( cuenta.darCuentaAhorros( ).darInteresMensual( ) * 100 ) + "%]" );
+        panelAhorros.actualizarSaldoAhorros( formatearValor(saldo), String.format("%.2f", interes));
         panelCDT.actualizarSaldoCDT( formatearValor( cuenta.darCDT( ).calcularValorPresente( cuenta.darMesActual( ) ) ) + "   [" + ( cuenta.darCDT( ).darInteresMensual( ) * 100 ) + "%]" );
 
     }
