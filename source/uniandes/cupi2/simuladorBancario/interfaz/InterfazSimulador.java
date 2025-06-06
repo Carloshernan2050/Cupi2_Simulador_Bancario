@@ -123,7 +123,7 @@ public class InterfazSimulador extends JFrame
         panelTransacciones.add( panelSaldos );
 
         setLocationRelativeTo( null );
-        setResizable( true );
+        setResizable( false );
 
         actualizar( );
     }
