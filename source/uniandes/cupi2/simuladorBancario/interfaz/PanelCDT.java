@@ -123,8 +123,8 @@ public class PanelCDT extends JPanel implements ActionListener
 
         JPanel panelInfo = new JPanel( );
         JPanel panelBotones = new JPanel( );
-        panelInfo.setLayout( new GridLayout( 1, 2 ) );
-        panelInfo.setBorder( new EmptyBorder( 0, 0, 5, 0 ) );
+        panelInfo.setLayout( new GridLayout( 2, 2 ) );
+        panelInfo.setBorder( new EmptyBorder( 0, 2, 5, 0 ) );
         panelBotones.setLayout( new BorderLayout( ) );
         panelBotones.setBorder( new EmptyBorder( 0, 5, 5, 5 ) );
         panelBotones.setPreferredSize( new Dimension( 215, 0 ) );
@@ -132,6 +132,8 @@ public class PanelCDT extends JPanel implements ActionListener
         // Ubica los elementos en el panel
         panelInfo.add( etiquetaSaldoCdt );
         panelInfo.add( txtSaldoCdt );
+        panelInfo.add( etiquetaInteresCDT );
+        panelInfo.add( txtInteresCDT );
         panelBotones.add( btnAbrirCDT, BorderLayout.WEST );
         panelBotones.add( new JLabel( " " ), BorderLayout.CENTER );
         panelBotones.add( btnCerrarCDT, BorderLayout.EAST );
@@ -151,10 +153,10 @@ public class PanelCDT extends JPanel implements ActionListener
      * <b>post: </b> Se actualizó la información con el saldo en CDT.
      * @param pSaldo Saldo en el CDT del cliente. pSaldo != null.
      */
-    public void actualizarSaldoCDT( String pSaldo, String interes )
+    public void actualizarSaldoCDT( String pSaldo, String interesCDT )
     {
         txtSaldoCdt.setText( pSaldo );
-        txtInteresCDT.setText(interes + " %");
+        txtInteresCDT.setText(interesCDT + " %");
     }
 
     /**
