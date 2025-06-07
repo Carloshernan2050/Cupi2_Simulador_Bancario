@@ -1,13 +1,3 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
- * Licenciado bajo el esquema Academic Free License version 2.1 
- *
- * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
- * Ejercicio: n1_simuladorBancario
- * Autor: Equipo Cupi2 2017
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
- */
 package uniandes.cupi2.simuladorBancario.test;
 
 import uniandes.cupi2.simuladorBancario.mundo.CuentaCorriente;
@@ -54,7 +44,7 @@ public class CuentaCorrienteTest
     public void testCuentaCorriente( )
     {
         setupEscenario1( );
-        assertEquals( "El saldo de la cuenta de ahorros", 0, cuenta.darSaldo( ), 0.00001 );
+        assertEquals( "El saldo de la cuenta corriente debe ser cero", 0, cuenta.darSaldo( ), 0.00001 );
     }
 
     /**
@@ -66,12 +56,11 @@ public class CuentaCorrienteTest
      * 1. La cuenta corriente no tiene saldo.
      */
     @Test
-    public void testConsigarMonto( )
+    public void testConsignarMonto( )
     {
         setupEscenario1( );
         cuenta.consignarMonto( 10000 );
-        assertEquals( "El saldo de la cuenta no es el esperado", 10000, cuenta.darSaldo( ) , 2);
-
+        assertEquals( "El saldo de la cuenta no es el esperado", 10000, cuenta.darSaldo( ), 0.0001 );
     }
 
     /**
@@ -88,8 +77,7 @@ public class CuentaCorrienteTest
         setupEscenario1( );
         cuenta.consignarMonto( 10000 );
         cuenta.retirarMonto( 1000 );
-        assertEquals( "El saldo de la cuenta no es el esperado", 9000, cuenta.darSaldo( ), 2 );
-
+        assertEquals( "El saldo de la cuenta no es el esperado", 9000, cuenta.darSaldo( ), 0.0001 );
     }
 
 }

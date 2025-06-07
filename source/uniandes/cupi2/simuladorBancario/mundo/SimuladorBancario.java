@@ -151,9 +151,9 @@ public class SimuladorBancario
      * <b>post: </b> Consignó un monto de dinero en la cuenta corriente.
      * @param pMonto Monto de dinero a consignar en la cuenta. pMonto > 0.
      */
-    public void consignarCuentaCorriente( double pMonto )
+    public void consignarCuentaCorriente(double pMonto) 
     {
-        corriente.consignarMonto( pMonto );
+        corriente.consignarMonto(pMonto, mesActual);
     }
 
     /**
@@ -163,7 +163,7 @@ public class SimuladorBancario
      */
     public void consignarCuentaAhorros( double pMonto )
     {
-        ahorros.consignarMonto( pMonto );
+        ahorros.consignarMonto(pMonto, mesActual);
     }
 
     /**
@@ -173,7 +173,7 @@ public class SimuladorBancario
      */
     public void retirarCuentaCorriente( double pMonto )
     {
-        corriente.retirarMonto( pMonto );
+        corriente.retirarMonto(pMonto, mesActual);
     }
 
     /**
@@ -183,7 +183,7 @@ public class SimuladorBancario
      */
     public void retirarCuentaAhorros( double pMonto )
     {
-        ahorros.retirarMonto( pMonto );
+        ahorros.retirarMonto(pMonto, mesActual);
     }
 
     /**
@@ -203,10 +203,32 @@ public class SimuladorBancario
      */
     public void cerrarCDT( )
     {
-        double valorCierreCDT = inversion.cerrar( mesActual );
-        corriente.consignarMonto( valorCierreCDT );
+        double valorCierreCDT = inversion.cerrar(mesActual);
+        corriente.consignarMonto(valorCierreCDT, mesActual); // Aquí sí se registra transacción
     }
+    
+    
+    /**
+     * Genera un resumen de las transacciones del mes actual.
+     * @return Cadena con el resumen de transacciones del mes.
+     */
+    public String generarResumenTransaccionesMesActual() {
+        StringBuilder resumen = new StringBuilder();
+        resumen.append("Resumen de transacciones del mes ").append(mesActual).append(":\n");
 
+        resumen.append("Cuenta Corriente:\n");
+        for (Transaccion t : corriente.darTransaccionesMes(mesActual)) {
+            resumen.append("  - ").append(t.toString()).append("\n");
+        }
+
+        resumen.append("Cuenta de Ahorros:\n");
+        for (Transaccion t : ahorros.darTransaccionesMes(mesActual)) {
+            resumen.append("  - ").append(t.toString()).append("\n");
+        }
+
+        return resumen.toString();
+    }
+    
     /**
      * Calcula el saldo promedio de las cuentas del cliente entre el mes actual y un mes dado por el cliente.
      * @param mesActualSimulacion Mes actual de la simulación. mesActualSimulacion > 0.
@@ -238,8 +260,8 @@ public class SimuladorBancario
      * Retorna el resultado de la extensión 2.
      * @return Respuesta 2.
      */
-    public String metodo2( )
+    public String metodo2() 
     {
-        return "Respuesta 2";
+        return generarResumenTransaccionesMesActual();
     }
 }

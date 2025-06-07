@@ -9,7 +9,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
  */
 package uniandes.cupi2.simuladorBancario.mundo;
-
+import java.util.ArrayList;
 /**
  * Clase que representa la cuenta corriente de un cliente.
  */
@@ -23,7 +23,7 @@ public class CuentaCorriente
      * Saldo actual de la cuenta corriente.
      */
     private double saldo;
-
+    private ArrayList<Transaccion> transacciones;
     // -----------------------------------------------------------------
     // Métodos
     // -----------------------------------------------------------------
@@ -35,6 +35,7 @@ public class CuentaCorriente
     public CuentaCorriente( )
     {
         saldo = 0;
+        transacciones = new ArrayList<>();
     }
 
     /**
@@ -47,13 +48,14 @@ public class CuentaCorriente
     }
 
     /**
-     * Consigna un monto de dinero en la cuenta del cliente. <br>
-     * <b>post: </b> El saldo se incrementó en el monto de dinero dado. <br>
-     * @param pMonto Monto de dinero a consignar en la cuenta. pMonto > 0.
+     * Consigna una cantidad al saldo sin registrar transacción.
+     * Usado para consignaciones internas como el cierre del CDT.
+     * @param pMonto Monto a consignar.
      */
-    public void consignarMonto( double pMonto )
+    public void consignarMonto(double pMonto, int mes) 
     {
-        saldo = saldo + pMonto;
+        saldo += pMonto;
+        transacciones.add(new Transaccion("Consignación", pMonto, mes));
     }
 
     /**
@@ -61,8 +63,19 @@ public class CuentaCorriente
      * <b>post: </b> El saldo se redujo en el monto de dinero dado.
      * @param pMonto Monto de dinero a retirar en la cuenta. pMonto > 0.
      */
-    public void retirarMonto( double pMonto )
+    public void retirarMonto(double pMonto, int mes)
     {
-        saldo = saldo - pMonto;
+        saldo -= pMonto;
+        transacciones.add(new Transaccion("Retiro", pMonto, mes));
+    }
+    
+    public ArrayList<Transaccion> darTransaccionesMes(int mes) {
+        ArrayList<Transaccion> resultado = new ArrayList<>();
+        for (Transaccion t : transacciones) {
+            if (t.darMes() == mes) {
+                resultado.add(t);
+            }
+        }
+        return resultado;
     }
 }

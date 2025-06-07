@@ -9,7 +9,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
  */
 package uniandes.cupi2.simuladorBancario.mundo;
-
+import java.util.ArrayList;
 /**
  * Clase que representa la cuenta de ahorro de un cliente.
  */
@@ -28,7 +28,7 @@ public class CuentaAhorros
      * Interés mensual que paga la cuenta de ahorro.
      */
     private double interesMensual;
-
+    private ArrayList<Transaccion> transacciones;
     // -----------------------------------------------------------------
     // Métodos
     // -----------------------------------------------------------------
@@ -41,6 +41,7 @@ public class CuentaAhorros
     {
         saldo = 0;
         interesMensual = 0.006;
+        transacciones = new ArrayList<>();
     }
 
     /**
@@ -66,9 +67,10 @@ public class CuentaAhorros
      * <b>post: </b> El saldo se incrementó en el monto de dinero ingresado. <br>
      * @param pMonto Monto de dinero a consignar en la cuenta. pMonto > 0.
      */
-    public void consignarMonto( double pMonto )
+    public void consignarMonto(double pMonto, int mes) 
     {
-        saldo = saldo + pMonto;
+        saldo += pMonto;
+        transacciones.add(new Transaccion("Consignación", pMonto, mes));
     }
 
     /**
@@ -76,18 +78,18 @@ public class CuentaAhorros
      * <b>post: </b> El saldo se redujo en el valor dado.
      * @param pMonto Monto de dinero a retirar de la cuenta de ahorros. pMonto > 0.
      */
-    public void retirarMonto( double pMonto )
+    public void retirarMonto(double pMonto, int mes) 
     {
-        saldo = saldo - pMonto;
+        saldo -= pMonto;
+        transacciones.add(new Transaccion("Retiro", pMonto, mes));
     }
-
     /**
      * Actualiza el saldo de la cuneta de ahorros sumándole los intereses (ha pasado un mes). <br>
      * <b>post: </b> El saldo actual se actualizó aplicando el porcentaje de interés mensual respectivo.
      */
-    public void actualizarSaldoPorPasoMes( )
+    public void actualizarSaldoPorPasoMes() 
     {
-        saldo = saldo + ( saldo * interesMensual );
+        saldo += saldo * interesMensual;
     }
     
     /**
@@ -102,5 +104,17 @@ public class CuentaAhorros
             saldoSimulado += saldoSimulado * interesMensual;
         }
         return saldoSimulado;
+        
     }
+    
+    public ArrayList<Transaccion> darTransaccionesMes(int mes) {
+        ArrayList<Transaccion> resultado = new ArrayList<>();
+        for (Transaccion t : transacciones) {
+            if (t.darMes() == mes) {
+                resultado.add(t);
+            }
+        }
+        return resultado;
+    }
+
 }
