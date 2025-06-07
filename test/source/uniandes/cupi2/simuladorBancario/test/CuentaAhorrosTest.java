@@ -57,14 +57,14 @@ public class CuentaAhorrosTest
      * <b> Casos de prueba: </b> <br>
      * 1. La cuenta de ahorros no tiene saldo.
      */
+    
     @Test
-    public void testConsignarMonto( )
-    {
-        setupEscenario1( );
-        cuenta.consignarMonto( 10000 );
-        assertEquals( "El saldo de la cuenta no es el esperado", 10000, cuenta.darSaldo( ), 0.0001 );
+    public void testConsignarMonto() {
+        setupEscenario1();
+        int mesActual = 1; // definir mes para usar en la consignación
+        cuenta.consignarMonto(10000, mesActual);
+        assertEquals("El saldo de la cuenta no es el esperado", 10000, cuenta.darSaldo(), 0.0001);
     }
-
     /**
      * Prueba 3: Método que se encarga de verificar el método retirarMonto.<br>
      * <b> Métodos a probar: </b> <br>
@@ -77,8 +77,9 @@ public class CuentaAhorrosTest
     public void testRetirarMonto( )
     {
         setupEscenario1( );
-        cuenta.consignarMonto( 10000 );
-        cuenta.retirarMonto( 1000 );
+        int mesActual = 1;  // O el mes que quieras usar para la prueba
+        cuenta.consignarMonto( 10000, mesActual );
+        cuenta.retirarMonto( 1000, mesActual );
         assertEquals( "El saldo de la cuenta no es el esperado", 9000, cuenta.darSaldo( ), 0.0001 );
     }
 
@@ -95,7 +96,8 @@ public class CuentaAhorrosTest
     public void testActualizarSaldoPorPasoMes( )
     {
         setupEscenario1( );
-        cuenta.consignarMonto( 10000 );
+        int mesActual = 1;
+        cuenta.consignarMonto( 10000, mesActual );
         cuenta.actualizarSaldoPorPasoMes( );
         assertEquals( "El saldo de la cuenta no es el esperado", 10000 * ( 1 + 0.006 ), cuenta.darSaldo( ), 0.0001 );
     }
